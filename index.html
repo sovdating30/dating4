@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Your mood</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --text-light: #f9f9f9;
+            --text-muted: #b0b0b0;
+            --card-bg: rgba(20, 20, 40, 0.85);
+            --accent-soft: #ff9a9e;
+            --accent-hot: #f08a5d;
+            --border-radius: 30px;
+            --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* ========== ВСТАВЬТЕ ВАШУ ПРЯМУЮ ССЫЛКУ СЮДА ========== */
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('ССЫЛКА_НА_ФОТО') no-repeat center center fixed;
+            background-size: cover;
+            /* ==================================================== */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin: 0;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .main-card {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 1.2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 5vw, 2.8rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, #fff, #d3d3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .subhead {
+            text-align: center;
+            font-size: clamp(0.8rem, 3vw, 1.2rem);
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            font-weight: 300;
+        }
+
+        .choice-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .choice-card {
+            flex: 1 1 220px;
+            max-width: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        .choice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px -10px #e94560a0;
+        }
+
+        .card-soft:hover {
+            box-shadow: 0 25px 40px -10px #ff9a9e;
+        }
+        .card-hot:hover {
+            box-shadow: 0 25px 40px -10px #f08a5d;
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s;
+        }
+
+        .choice-card:hover .icon-wrapper {
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        .icon-wrapper svg {
+            width: 50px;
+            height: 50px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .card-soft .icon-wrapper svg {
+            stroke: #ff9a9e;
+        }
+        .card-hot .icon-wrapper svg {
+            stroke: #f08a5d;
+        }
+
+        .choice-card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .choice-card p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            max-width: 220px;
+        }
+
+        .fake-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.2s, gap 0.2s;
+            color: inherit;
+            text-decoration: none;
+            margin-top: auto;
+        }
+
+        .choice-card:hover .fake-btn {
+            background: rgba(255, 255, 255, 0.2);
+            gap: 10px;
+        }
+
+        .fake-btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s;
+        }
+
+        .choice-card:hover .fake-btn svg {
+            transform: translateX(4px);
+        }
+
+        .card-soft .fake-btn {
+            color: #ffc0cb;
+        }
+        .card-hot .fake-btn {
+            color: #f08a5d;
+        }
+
+        @media (max-width: 600px) {
+            .main-card { padding: 1.2rem 1rem; }
+            h1 { font-size: clamp(1.2rem, 6vw, 1.8rem); margin-bottom: 0.2rem; }
+            .subhead { font-size: 0.85rem; margin-bottom: 1rem; }
+            .choice-grid { gap: 0.8rem; }
+            .choice-card { flex: 1 1 100%; max-width: 280px; padding: 1.2rem 0.8rem; }
+            .icon-wrapper { width: 70px; height: 70px; margin-bottom: 0.8rem; }
+            .icon-wrapper svg { width: 42px; height: 42px; }
+            .choice-card h2 { font-size: 1.5rem; }
+            .choice-card p { font-size: 0.85rem; margin-bottom: 1.2rem; }
+            .fake-btn { padding: 0.5rem 1.2rem; font-size: 0.9rem; }
+        }
+
+        @media (max-height: 700px) {
+            .main-card { padding: 1rem; }
+            h1 { margin-bottom: 0.2rem; }
+            .subhead { margin-bottom: 0.8rem; }
+            .choice-card { padding: 1rem; }
+            .icon-wrapper { width: 65px; height: 65px; margin-bottom: 0.5rem; }
+            .icon-wrapper svg { width: 40px; height: 40px; }
+            .choice-card h2 { font-size: 1.4rem; }
+            .choice-card p { margin-bottom: 1rem; }
+            .fake-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
+        }
+
+        @media (max-height: 600px) {
+            body { padding: 8px; }
+            .main-card { padding: 0.8rem; }
+            h1 { font-size: 1.2rem; }
+            .subhead { font-size: 0.8rem; margin-bottom: 0.5rem; }
+            .choice-card { flex-direction: row; max-width: 100%; padding: 0.8rem; gap: 0.5rem; }
+            .icon-wrapper { width: 50px; height: 50px; margin-bottom: 0; }
+            .icon-wrapper svg { width: 30px; height: 30px; }
+            .choice-card h2 { font-size: 1.2rem; }
+            .choice-card p { display: none; }
+            .fake-btn { padding: 0.3rem 0.8rem; font-size: 0.8rem; }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .choice-card {
+            animation: fadeUp 0.4s ease forwards;
+        }
+        .card-soft { animation-delay: 0.1s; }
+        .card-hot { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+    <div class="main-card">
+        <h1>What's your mood tonight?</h1>
+        <div class="subhead">Choose the vibe — we'll introduce you to someone who shares it</div>
+
+        <div class="choice-grid">
+            <a href="https://stayas.top/click?o=2&a=6596" class="choice-card card-soft" target="_blank" rel="nofollow sponsored">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.08 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5 22 12.27 18.6 15.36 13.45 20.03L12 21.35z"/></svg>
+                </div>
+                <h2>Romance</h2>
+                <p>Long talks, deep connection, and maybe love.</p>
+                <span class="fake-btn">Find your match <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </a>
+
+            <a href="https://stayas.top/click?o=2&a=6596" class="choice-card card-hot" target="_blank" rel="nofollow sponsored">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M13.5 2C12.5 4 11.5 5 9 6 8 6.5 7 7 6 8 4 10 3 12 3 14 3 16.5 4.5 19 7 20.5 8 21 9 21.5 10 21.5 11 21.5 12 21 13 20.5 15 19 16.5 17 16.5 15 16.5 13 15.5 11 13.5 9 12.5 8 12 7 12 6 12 4.5 12.5 3 13.5 2z"/><path d="M14 7.5C15 9 15.5 10.5 15.5 12 15.5 14 14 16 11.5 17.5 10.5 18 9.5 18.5 8.5 18.5 9 19 9.5 19 10 19 13 19 15.5 16.5 15.5 13.5 15.5 11.5 14.5 9.5 13 8 12.5 7.5 12 7 11.5 6.5 12 6 12.5 5.5 13 5 13.5 5.5 14 6.5 14 7.5z"/></svg>
+                </div>
+                <h2>Passion</h2>
+                <p>No strings, just chemistry and unforgettable nights.</p>
+                <span class="fake-btn">Find your match <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem; font-size: 0.75rem; color: rgba(255,255,255,0.3);">You're one click away</div>
+    </div>
+</body>
+</html>
